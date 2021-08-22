@@ -1,5 +1,6 @@
 package com.nuvalence.model;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -103,42 +104,45 @@ public class Rectangle implements Shape {
      */
     @Override
     public List<Integer> intersectionPoints(Rectangle r) {
+        if (this.intersects(r)) {
 
-        int x0 = Math.max(this.getX(), r.getX());
-        int y0 = Math.max(this.getY(), r.getY());
-        int x1 = Math.min(this.getX() + this.getWidth(), r.getX() + r.getWidth());
-        int y1 = Math.min(this.getY() + this.getHeight(), r.getY() + r.getHeight());
+            int x0 = Math.max(this.getX(), r.getX());
+            int y0 = Math.max(this.getY(), r.getY());
+            int x1 = Math.min(this.getX() + this.getWidth(), r.getX() + r.getWidth());
+            int y1 = Math.min(this.getY() + this.getHeight(), r.getY() + r.getHeight());
 
-        int currX0 = this.getX();
-        int currX1 = this.getX() + this.getWidth();
-        int currY0 = this.getY();
-        int currY1 = this.getY() + this.getHeight();
-        int otherX0 = r.getX();
-        int otherX1 = r.getX() + r.getWidth();
-        int otherY0 = r.getY();
-        int otherY1 = r.getY() + r.getHeight();
+            int currX0 = this.getX();
+            int currX1 = this.getX() + this.getWidth();
+            int currY0 = this.getY();
+            int currY1 = this.getY() + this.getHeight();
+            int otherX0 = r.getX();
+            int otherX1 = r.getX() + r.getWidth();
+            int otherY0 = r.getY();
+            int otherY1 = r.getY() + r.getHeight();
 
-        if ((currX0 > otherX0 && currY0 > otherY0 && currX1 > otherX1 && currY1 < otherY1)
-                || (currX0 < otherX0 && currY0 < otherY0 && currX1 < otherX1 && currY1 > otherY1)) {
-            return List.of(x1, y0, x1, y1);
-        } else if ((currX0 < otherY0 && currY0 > otherY0 && currX1 < otherX1 && currY1 < otherY1)
-                || (currX0 > otherX0 && currY0 < otherY0 && currY1 > otherY1 && currX1 > otherX1)) {
-            return List.of(x0, y0, x0, y1);
-        } else if ((currX0 < otherX0 && currY0 > otherY0 && currX1 > otherX1 && currY1 > otherY1)
-                || (currX0 > otherX0 && currY0 < otherY0 && currX1 < otherX1 && currY1 < otherY1)) {
-            return List.of(x0, y0, x1, y0);
-        } else if ((currX0 > otherX0 && currY0 > otherY0 && currX1 < otherX1 && currY1 > otherY1)
-                || (currX0 < otherX0 && currY0 < otherY0 && currX1 > otherX1 && currY1 < otherY1)) {
-            return List.of(x0, y1, x1, y1);
-        } else if ((currX0 > otherX0 && currY0 < otherY0 && currX1 > otherX1 && currY1 < otherY1)
-                || (currX0 < otherX0 && currY0 > otherY0 && currX1 < otherX1 && currY1 > otherY1)) {
-            return List.of(x0, y0, x1, y1);
-        } else if ((currX0 > otherX0 && currY0 > otherY0 && currX1 > otherX1 && currY1 > otherY1)
-                || (currX0 < otherX0 && currY0 < otherY0 && currY1 < otherY1 && currX1 < otherX1)) {
-            return List.of(x1, y0, x0, y1);
-        } else {
-            return List.of(x0, y0, x1, y0, x1, y1, x0, y1);
+            if ((currX0 > otherX0 && currY0 > otherY0 && currX1 > otherX1 && currY1 < otherY1)
+                    || (currX0 < otherX0 && currY0 < otherY0 && currX1 < otherX1 && currY1 > otherY1)) {
+                return List.of(x1, y0, x1, y1);
+            } else if ((currX0 < otherY0 && currY0 > otherY0 && currX1 < otherX1 && currY1 < otherY1)
+                    || (currX0 > otherX0 && currY0 < otherY0 && currY1 > otherY1 && currX1 > otherX1)) {
+                return List.of(x0, y0, x0, y1);
+            } else if ((currX0 < otherX0 && currY0 > otherY0 && currX1 > otherX1 && currY1 > otherY1)
+                    || (currX0 > otherX0 && currY0 < otherY0 && currX1 < otherX1 && currY1 < otherY1)) {
+                return List.of(x0, y0, x1, y0);
+            } else if ((currX0 > otherX0 && currY0 > otherY0 && currX1 < otherX1 && currY1 > otherY1)
+                    || (currX0 < otherX0 && currY0 < otherY0 && currX1 > otherX1 && currY1 < otherY1)) {
+                return List.of(x0, y1, x1, y1);
+            } else if ((currX0 > otherX0 && currY0 < otherY0 && currX1 > otherX1 && currY1 < otherY1)
+                    || (currX0 < otherX0 && currY0 > otherY0 && currX1 < otherX1 && currY1 > otherY1)) {
+                return List.of(x0, y0, x1, y1);
+            } else if ((currX0 > otherX0 && currY0 > otherY0 && currX1 > otherX1 && currY1 > otherY1)
+                    || (currX0 < otherX0 && currY0 < otherY0 && currY1 < otherY1 && currX1 < otherX1)) {
+                return List.of(x1, y0, x0, y1);
+            } else {
+                return List.of(x0, y0, x1, y0, x1, y1, x0, y1);
+            }
         }
+        return Collections.emptyList();
 
     }
 
